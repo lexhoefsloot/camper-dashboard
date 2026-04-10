@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚖️ Camper Vergelijking</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="/" class="btn-icon" title="Terug">←</a>
+            <h1>⚖️ Camper Vergelijking</h1>
+        </div>
+    </header>
+
+    <main class="compare-main">
+        <div class="compare-table" id="compareTable"></div>
+        <div class="loading" id="loading" style="display:none;">
+            <div class="spinner"></div>
+            <span>Laden...</span>
+        </div>
+        <div class="empty" id="empty" style="display:none;">
+            <div class="empty-icon">⚖️</div>
+            <p>Selecteer 2-3 campers op de hoofdpagina om te vergelijken.</p>
+            <a href="/" class="btn btn-primary" style="margin-top:1rem;">← Terug naar overzicht</a>
+        </div>
+    </main>
+
+    <script src="/static/js/compare.js"></script>
+</body>
+</html>

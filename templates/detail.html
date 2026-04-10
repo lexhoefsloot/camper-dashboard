@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camper Detail</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <a href="/" class="btn-icon" title="Terug">←</a>
+            <h1 id="detailTitle">Laden...</h1>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-outline" id="favBtn">☆ Favoriet</button>
+            <a class="btn btn-primary" id="mpLink" href="#" target="_blank" rel="noopener">🔗 Marktplaats</a>
+        </div>
+    </header>
+
+    <main class="detail-main">
+        <!-- Photo gallery -->
+        <section class="gallery" id="gallery">
+            <div class="gallery-main" id="galleryMain"></div>
+            <div class="gallery-thumbs" id="galleryThumbs"></div>
+        </section>
+
+        <!-- Price bar -->
+        <div class="detail-price-bar" id="priceBar"></div>
+
+        <!-- Key specs -->
+        <section class="detail-specs" id="detailSpecs"></section>
+
+        <!-- Features -->
+        <section class="detail-section" id="detailFeatures"></section>
+
+        <!-- All parsed data -->
+        <section class="detail-data" id="detailData"></section>
+
+        <!-- Raw description -->
+        <section class="detail-description">
+            <h2>Beschrijving</h2>
+            <div class="raw-html" id="rawHtml"></div>
+        </section>
+    </main>
+
+    <script>
+        const CAMPER_ID = {{ camper_id }};
+    </script>
+    <script src="/static/js/detail.js"></script>
+</body>
+</html>

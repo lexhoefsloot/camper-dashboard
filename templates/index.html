@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚐 Camper Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon" id="filterToggle" title="Filters">☰</button>
+            <h1>🚐 Camper Dashboard</h1>
+        </div>
+        <div class="header-stats" id="stats"></div>
+        <div class="header-right">
+            <button class="btn btn-outline btn-sm" id="exportCsv" title="CSV exporteren">📥 CSV</button>
+            <button class="btn btn-outline btn-sm" id="compareBtn" title="Vergelijk geselecteerde" disabled>⚖️ Vergelijk</button>
+        </div>
+    </header>
+
+    <!-- Filter Sidebar -->
+    <aside class="sidebar desktop-closed" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🔍 Filters</h2>
+            <button class="btn-icon" id="filterClose">✕</button>
+        </div>
+        <div class="sidebar-content">
+            <!-- Search -->
+            <div class="filter-group">
+                <label>Zoeken</label>
+                <input type="text" id="filterQ" placeholder="Titel, locatie...">
+            </div>
+
+            <!-- Price -->
+            <div class="filter-group">
+                <label>Prijs (€)</label>
+                <div class="range-inputs">
+                    <input type="number" id="filterMinPrice" placeholder="Min" step="1000">
+                    <span>—</span>
+                    <input type="number" id="filterMaxPrice" placeholder="Max" step="1000">
+                </div>
+            </div>
+
+            <!-- Brand -->
+            <div class="filter-group">
+                <label>Merk</label>
+                <select id="filterMerk">
+                    <option value="">Alle merken</option>
+                </select>
+            </div>
+
+            <!-- Year -->
+            <div class="filter-group">
+                <label>Bouwjaar</label>
+                <div class="range-inputs">
+                    <input type="number" id="filterMinYear" placeholder="Van">
+                    <span>—</span>
+                    <input type="number" id="filterMaxYear" placeholder="Tot">
+                </div>
+            </div>
+
+            <!-- KM -->
+            <div class="filter-group">
+                <label>Kilometerstand</label>
+                <div class="range-inputs">
+                    <input type="number" id="filterMinKm" placeholder="Min" step="10000">
+                    <span>—</span>
+                    <input type="number" id="filterMaxKm" placeholder="Max" step="10000">
+                </div>
+            </div>
+
+            <!-- Capacity -->
+            <div class="filter-group">
+                <label>Slaapplaatsen (min)</label>
+                <input type="number" id="filterMinSlaap" min="0" max="10" placeholder="Min">
+            </div>
+            <div class="filter-group">
+                <label>Zitplaatsen (min)</label>
+                <input type="number" id="filterMinZit" min="0" max="10" placeholder="Min">
+            </div>
+
+            <!-- Fuel -->
+            <div class="filter-group">
+                <label>Brandstof</label>
+                <select id="filterBrandstof">
+                    <option value="">Alle</option>
+                </select>
+            </div>
+
+            <!-- Transmission -->
+            <div class="filter-group">
+                <label>Transmissie</label>
+                <select id="filterTransmissie">
+                    <option value="">Alle</option>
+                    <option value="automaat">Automaat</option>
+                    <option value="handgeschakeld">Handgeschakeld</option>
+                </select>
+            </div>
+
+            <!-- Comfort toggles -->
+            <div class="filter-group">
+                <label>Comfort</label>
+                <div class="toggle-grid">
+                    <label class="toggle"><input type="checkbox" id="filterAirco"><span>❄️ Airco</span></label>
+                    <label class="toggle"><input type="checkbox" id="filterGps"><span>🗺️ GPS</span></label>
+                    <label class="toggle"><input type="checkbox" id="filterParkeer"><span>📡 P-sensoren</span></label>
+                </div>
+            </div>
+
+            <!-- Camper features -->
+            <div class="filter-group">
+                <label>Camper voorzieningen</label>
+                <div class="toggle-grid">
+                    <label class="toggle"><input type="checkbox" id="filterKeuken"><span>🍳 Keuken</span></label>
+                    <label class="toggle"><input type="checkbox" id="filterKoelkast"><span>🧊 Koelkast</span></label>
+                    <label class="toggle"><input type="checkbox" id="filterDouche"><span>🚿 Douche</span></label>
+                    <label class="toggle"><input type="checkbox" id="filterToilet"><span>🚽 Toilet</span></label>
+                </div>
+            </div>
+
+            <!-- Maintenance -->
+            <div class="filter-group">
+                <label>Onderhoud</label>
+                <div class="toggle-grid">
+                    <label class="toggle"><input type="checkbox" id="filterApk"><span>✅ APK geldig</span></label>
+                    <label class="toggle"><input type="checkbox" id="filterService"><span>📒 Service hist.</span></label>
+                </div>
+            </div>
+
+            <!-- Favorites -->
+            <div class="filter-group">
+                <label class="toggle" style="font-size:0.9375rem;font-weight:600;"><input type="checkbox" id="filterFavorites"><span>⭐ Alleen favorieten</span></label>
+            </div>
+
+            <!-- Sort -->
+            <div class="filter-group">
+                <label>Sorteer op</label>
+                <select id="filterSort">
+                    <option value="price_asc">Prijs ↑ laag → hoog</option>
+                    <option value="price_desc">Prijs ↓ hoog → laag</option>
+                    <option value="year_desc">Bouwjaar ↓ nieuwste</option>
+                    <option value="year_asc">Bouwjaar ↑ oudste</option>
+                    <option value="km_asc">Km ↑ minste eerst</option>
+                    <option value="newest">Recent toegevoegd</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-primary" id="applyFilters">Toon resultaten</button>
+                <button class="btn btn-outline" id="resetFilters">Reset</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main content -->
+    <main class="main">
+        <div class="grid" id="camperGrid"></div>
+        <div class="pagination" id="pagination"></div>
+        <div class="loading" id="loading" style="display:none;">
+            <div class="spinner"></div>
+            <span>Campers laden...</span>
+        </div>
+        <div class="empty" id="empty" style="display:none;">
+            <div class="empty-icon">🔍</div>
+            <p>Geen campers gevonden met deze filters.</p>
+        </div>
+    </main>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
